@@ -1,7 +1,6 @@
 import adafruit_dht
 import time
 
-
 class DHT22Module:
     def __init__(self, id, pin, type=adafruit_dht.DHT22):
         self.id = id
@@ -33,3 +32,14 @@ class DHT22Module:
             except Exception as error:
                 self.dht_device.exit()
                 raise error
+
+# Example usage, assuming pins 4, 17, and 27
+modules = [
+    DHT22Module(id, pin)
+    for id, pin in zip([1, 2, 3, 4], [4, 17, 27, 22])
+    if id not in [1, 3]
+]
+
+for module in modules:
+    print(f"Module ID: {module.get_id()}")
+    module.get_sensor_readings()
