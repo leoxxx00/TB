@@ -133,7 +133,28 @@
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
     <script type="text/javascript" src="../static/index.js"></script>
-    <input id="dhtCount" type="text" type="hidden" value="{{'0' if dht_modules == None else dht_modules|length}}"/>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const dhtCount = {{ '0' if dht_modules == None else dht_modules|length }};
+            
+            function fetchData() {
+                fetch('/api/get_dht_data')
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(dht => {
+                            if (dht.id != 1 && dht.id != 3) {
+                                document.getElementById(`temperature-${dht.id}`).textContent = `${dht.temperature} C`;
+                                document.getElementById(`humidity-${dht.id}`).textContent = `${dht.humidity}%`;
+                            }
+                        });
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
+
+            fetchData();
+            setInterval(fetchData, 5000); // Fetch new data every 5 seconds
+        });
+    </script>
 </body>
 
 </html>
