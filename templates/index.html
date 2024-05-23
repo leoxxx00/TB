@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    {%for dht in dht_modules%}
+                    {%for dht in dht_modules if dht.get_id() != 1 and dht.get_id() != 3 %}
                     <div class="col">
                         <div class="readings align-items-center justify-content-center border rounded-3 p-4">
                             <h3>DHT module #{{dht.get_id()}}</h3>
@@ -81,7 +81,7 @@
                 <div class="row mt-2">
                     <div class="col">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            {%for dht in dht_modules%}
+                            {%for dht in dht_modules if dht.get_id() != 1 and dht.get_id() != 3 %}
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link {% if loop.index == 1 %}active{%endif%}" id="dht-tab-{{dht.get_id()}}"
                                         data-bs-toggle="tab" data-bs-target="#dht-{{dht.get_id()}}"
@@ -93,7 +93,7 @@
                             {%endfor%}
                         </ul>
                         <div class="tab-content">
-                            {%for dht in dht_modules%}
+                            {%for dht in dht_modules if dht.get_id() != 1 and dht.get_id() != 3 %}
                             <div class="tab-pane {% if loop.index == 1 %}active{%endif%}" id="dht-{{dht.get_id()}}"
                                  role="tabpanel" aria-labelledby="dht-tab-{{dht.get_id()}}" tabindex="{{loop.index}}">
                                 <div class="graphs d-flex flex-wrap bg-white justify-content-evenly p-5">
